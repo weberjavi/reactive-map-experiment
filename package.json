@@ -4,7 +4,9 @@
   "description": "Carto code test to frontend job position",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "build": "webpack --watch --colors",
+    "dev": "webpack-dev-server --watch"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,15 @@
   "bugs": {
     "url": "https://github.com/weberjavi/carto-frontend-test/issues"
   },
-  "homepage": "https://github.com/weberjavi/carto-frontend-test#readme"
+  "homepage": "https://github.com/weberjavi/carto-frontend-test#readme",
+  "dependencies": {
+    "leaflet": "^1.2.0",
+    "webpack": "^3.8.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "webpack-dev-server": "^2.9.4"
+  }
 }
