@@ -1,0 +1,22 @@
+{
+  "name": "carto-frontend-test",
+  "version": "1.0.0",
+  "description": "Carto code test to frontend job position",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weberjavi/carto-frontend-test.git"
+  },
+  "keywords": [
+    "carto"
+  ],
+  "author": "weberjavi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weberjavi/carto-frontend-test/issues"
+  },
+  "homepage": "https://github.com/weberjavi/carto-frontend-test#readme"
+}
