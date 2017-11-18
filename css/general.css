@@ -1,0 +1,67 @@
+
+body {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+#map {
+  width: 100vw;
+  height: 100vh;
+  transform: perspective(800px) translateZ(200px) rotateX(37deg);
+  top: -16%;
+}
+.view-container {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  border: 10px solid #ededed;
+  overflow: hidden;
+}
+.header {
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+  height: 90px;
+  width: 100%;
+  background-color: #ededed;
+  font-family: sans-serif;
+}
+
+.header-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #D9636C;
+  letter-spacing: -5px;
+}
+.header-populated,
+.header-places {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+.header-places::after {
+  content: '\1F310';
+  color: #D9636C;
+  font-size: 1rem;
+  position: relative;
+  bottom: .05rem;
+  left: .4rem;
+}
+
+
+
+/*box-sizing: border-box;
+    position: relative;
+    font-size: 3rem;
+    letter-spacing: -6px;
+    top: 27px;
+    color: #D9636C;
+    font-weight: bold;
+    margin-right: 1rem;
+    transform: scaleY(2);*/

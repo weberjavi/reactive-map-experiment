@@ -1,6 +1,6 @@
 module.exports = {
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.html', '.css']
   },
   context: __dirname,
   entry: {
@@ -21,8 +21,7 @@ module.exports = {
     ]
   },
   devServer: {
-    host: '0.0.0.0',
-    port: 8080,
-    inline: true
+    host: 'localhost',
+    port: 8080
   }
 }
