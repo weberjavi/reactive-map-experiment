@@ -13,12 +13,54 @@
 <body>
   <section class="view-container">
     <header class="header">
-      <div class="header-title">WORLD</div>
-      <div class="header-subtitle">
-        <p class="header-populated">POPULATED</p>
-        <p class="header-places">PLACES</p>
+      <div class="logo">
+        <div class="header-title">WORLD</div>
+        <div class="header-subtitle">
+          <p class="header-populated">POPULATED</p>
+          <p class="header-places">PLACES</p>
+        </div>
+      </div>
+      <div class="city-data">
+        <section>
+          <label class="label" for="city-name">place</label>
+          <div id="city-name">
+            Madrid
+          </div>
+        </section>
+        <section>
+          <label class="label" for="city-country">country</label>
+          <div id="city-country">
+            Spain
+          </div>
+          <label class="label" for="city-region">region</label>
+          <div id="city-region">
+            Madrid
+          </div>
+        </section>
+        <section>
+          <label class="label" for="city-population">population</label>
+          <div id="city-population">
+            6783054
+          </div>
+        </section>
+
       </div>
     </header>
+    <div class="zoom-controls">
+      <div class="zoom-plus">
+        +
+      </div>
+      <div class="zoom-minus">
+        -
+      </div>
+    </div>
+    <div class="legend">
+      <div class="pop-bubble pop-rank1"></div>
+      <div class="pop-bubble pop-rank2"></div>
+      <div class="pop-bubble pop-rank3"></div>
+      <div class="pop-bubble pop-rank4"></div>
+      <div class="pop-bubble pop-rank5"></div>
+    </div>
     <div id="map"></div>
   </section>
   <script type="text/javascript" src="/build/app.js"></script>
