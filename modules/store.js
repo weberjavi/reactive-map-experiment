@@ -1,7 +1,9 @@
 'use strict'
-import {updateNode} from './DOMHelper'
+import {updateNodeContent, updateHeaderStyles} from './DOMHelper'
 
 let state = {
+  editLayersOpen: false,
+  distancesSectionActive: false,
   allPopulatedPlaces: [],
   countryCapitals: [],
   selectedPlace: {},
@@ -17,6 +19,11 @@ function setSelectedPlace(place) {
   console.log('selectedPlace');
   console.log(state.selectedPlace);
   updateCityData(place.options.properties)
+  updateHeaderStyles()
+}
+
+function updateCityDataViewState() {
+
 }
 
 function updateCityData(selectedPlaceData) {
@@ -27,19 +34,19 @@ function updateCityData(selectedPlaceData) {
 }
 
 function updateCityName(name)  {
-  updateNode('#city-name', name)
+  updateNodeContent('#city-name', name)
 }
 
 function updateCityPopulation(population)  {
-  updateNode('#city-population', population)
+  updateNodeContent('#city-population', population)
 }
 
 function updateCityCountry(country)  {
-  updateNode('#city-country', country)
+  updateNodeContent('#city-country', country)
 }
 
 function updateCityRegion(region)  {
-  updateNode('#city-region', region)
+  updateNodeContent('#city-region', region)
 }
 
 export {state, setSelectedPlace}

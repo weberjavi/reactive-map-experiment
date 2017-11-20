@@ -22,46 +22,73 @@
       </div>
       <div class="city-data">
         <section>
-          <label class="label" for="city-name">place</label>
-          <div id="city-name">
-            Madrid
+          <div class="label-wrapper">
+            <label class="label" for="city-name">place</label>
+          </div>
+          <div class="data-wrapper">
+            <div id="city-name" class="big-data"></div>
           </div>
         </section>
         <section>
-          <label class="label" for="city-country">country</label>
-          <div id="city-country">
-            Spain
+          <div class="label-wrapper">
+            <label class="label" for="city-country">country</label>
           </div>
-          <label class="label" for="city-region">region</label>
-          <div id="city-region">
-            Madrid
+          <div class="data-wrapper">
+            <div id="city-country" class="small-data"></div>
+          </div>
+          <div class="label-wrapper">
+            <label class="label" for="city-region">region</label>
+          </div>
+          <div class="data-wrapper">
+            <div id="city-region" class="small-data"></div>
           </div>
         </section>
         <section>
-          <label class="label" for="city-population">population</label>
-          <div id="city-population">
-            6783054
+          <div class="label-wrapper">
+            <label class="label" for="city-population">population</label>
+          </div>
+          <div class="data-wrapper">
+            <div id="city-population"  class="big-data"></div>
           </div>
         </section>
-
       </div>
     </header>
-    <div class="zoom-controls">
-      <div class="zoom-plus">
-        +
-      </div>
-      <div class="zoom-minus">
-        -
-      </div>
-    </div>
     <div class="legend">
       <div class="pop-bubble pop-rank1"></div>
       <div class="pop-bubble pop-rank2"></div>
       <div class="pop-bubble pop-rank3"></div>
       <div class="pop-bubble pop-rank4"></div>
       <div class="pop-bubble pop-rank5"></div>
+      <div class="pop-bubble pop-rank6"></div>
+      <div class="edit-button">&#x270E;</div>
+    </div>
+    <div class="edit-layers-board edit-layers-board--active">
+      <div class="">
+        <label for="" class="range-label">show places between</label>
+        <input type="range"
+               min="0"
+               max="30000000"
+               value="30000000"
+               class="population-slider">
+        <input type="range"
+               min="0"
+               max="30000000"
+               value="0"
+               class="population-slider2">
+      </div>
+      <div class="">
+        <label class="checkbox-label">show only capital cities</label>
+        <input type="checkbox" name="" value="">
+      </div>
+      <div class="">
+        <label class="checkbox-label">show distances info</label>
+        <input type="checkbox" name="" value="">
+      </div>
     </div>
     <div id="map"></div>
+    <div class="distances-container">
+
+    </div>
   </section>
   <script type="text/javascript" src="/build/app.js"></script>
 </body>

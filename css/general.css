@@ -60,6 +60,11 @@ body {
   bottom: .05rem;
   left: .4rem;
 }
+.label-wrapper,
+.data-wrapper {
+  position: relative;
+  overflow: hidden;
+}
 .city-data {
   display: flex;
   justify-content: space-between;
@@ -69,23 +74,41 @@ body {
   margin-left: 2rem;
 }
 .label {
+  position: relative;
   font-size: .8rem;
   font-family: monospace;
   font-weight: bold;
   color: #D9636C;
+  bottom: -15px;
+  transition: all .3s ease-in-out;
 }
+.label-visible {
+  bottom: 0px;
+}
+.big-data {
+  position: relative;
+  left: -2px;
+  font-weight: bold;
+  bottom: -55px;
+  transition: all .3s ease-in-out;
+}
+.small-data {
+  position: relative;
+  bottom: -20px;
+  transition: all .3s ease-in-out;
+}
+
+.big-data-visible,
+.small-data-visible {
+  bottom: 0;
+}
+
 #city-name {
   font-size: 3.5rem;
-  font-weight: bold;
-  position: relative;
-  left: -3px;
 }
 #city-population {
   font-size: 3.8rem;
-  font-weight: bold;
   line-height: 3.8rem;
-  position: relative;
-  left: -3px;
 }
 .zoom-controls {
   box-sizing: border-box;
@@ -108,18 +131,22 @@ body {
   top: 98px;
   left: 3rem;
   height: 40px;
-  width: 250px;
+  width: 300px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: #ededed;
   z-index: 4;
-  border-radius: 3px;
+  border-radius: 3px 0 0 3px;
 }
 .zoom-plus,
 .zoom-minus {
   font-weight: bold;
   color: #D9636C;
+  cursor: pointer;
+}
+.zoom-plus {
+  border-bottom: 1px solid #ADADAD;
 }
 
 .pop-bubble {
@@ -129,29 +156,156 @@ body {
   align-items: center;
 }
 
+.edit-button {
+  position: absolute;
+  height: 40px;
+  width: 50px;
+  right: -49px;
+  background-color: #e1e1e1;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+  color: #D9636C;
+  text-align: center;
+  font-size: 30px;
+  line-height: 45px;
+}
+
+
+
 .pop-rank1 {
-  background-color: #A5B9C3;
+  background-color: #9AB8C5;
 }
 
 .pop-rank2 {
-  background-color: #8EA8B4;
+  background-color: #6794A9;
 }
 
 .pop-rank3 {
-  background-color: #618697;
+  background-color: #407289;
 }
 
 .pop-rank4 {
-  background-color: #346379;
+  background-color: #2D5060;
 }
 
 .pop-rank5 {
-  background-color: #08415C;
+  background-color: #1A2E37;
 }
+
+.pop-rank6 {
+  background-color: #000;
+}
+
+.edit-layers-board {
+  box-sizing: border-box;
+  width: 349px;
+  height: 200px;
+  padding: 0 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #e1e1e1;
+  border-radius: 0 0 3px 3px;
+  position: absolute;
+  z-index: 4;
+  top: 137px;
+  left: 48px;
+  transform: rotateX(90deg);
+  transform-origin: top;
+  transition: all .3s ease-in-out;
+}
+.edit-layers-board--active {
+  transform: rotateX(0deg);
+}
+.checkbox-label,
+.range-label {
+  position: relative;
+  left: 4px;
+  font-size: 1.1rem;
+  font-family: monospace;
+  font-weight: bold;
+  color: #D9636C;
+}
+
+.checkbox-label {
+  display: inline-block;
+}
+
+.population-slider,
+.population-slider2 {
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  width: 100%;
+  height:5px;
+  background: -webkit-linear-gradient(to right, #A5B9C3, #8EA8B4, #618697, #346379, #08415C);
+  background: linear-gradient(to right, #A5B9C3, #8EA8B4, #618697, #346379, #08415C);
+}
+.population-slider2 {
+  position: relative;
+  top: -18px;
+  background: none transparent;
+}
+.population-slider::-webkit-slider-thumb,
+.population-slider2::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 13px;
+  background-color: #D9636C;
+  opacity: 1;
+  cursor: -webkit-grab;
+  pointer-events: all;
+  position: relative;
+  z-index: 1;
+}
+.population-slider::-webkit-slider-thumb:active,
+.population-slider2::-webkit-slider-thumb:active {
+  cursor: -webkit-grabbing;
+}
+
 .selected-place {
   fill: #D9636C;
   fillOpacity: 1;
 }
 .place-marker {
   transition: all ease-in-out;
+}
+
+.distances-container {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: -70px;
+  height: 70px;
+  width: 100vw;
+  border-top: 3px solid  #D9636C;
+  background-color: #ededed;
+  z-index: 4;
+}
+
+/* Leaflet controls styles */
+
+.leaflet-control-container {
+  position: absolute;
+  top: 87px;
+
+}
+.leaflet-touch .leaflet-bar {
+  border: none;
+}
+.leaflet-bar a {
+  background-color: #ededed;
+  color:  #D9636C;
+}
+.leaflet-bar a:hover {
+  background-color: #e1e1e1;
+  color:  #D9636C;
+}
+
+.custom-tooltip {
+  font-family: monospace;
+  background-color: #ededed;
+  color: #D9636C;
+  border: none;
 }
