@@ -33,7 +33,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoiamF2aWFiaWEiLCJhIjoiS1ZyQ3BQYyJ9.v8yJTbF879AQ_t6j5XafiQ'
 }).addTo(map);
 
-function addPlacesMarkers(placesArray) {
+function initMap(placesArray) {
   let layerGroup = []
   placesArray.map(place => {
     layerGroup.push(
@@ -56,6 +56,11 @@ function addPlacesMarkers(placesArray) {
                   })
                   .addTo(map)
 }
+
+function reloadMap(newData) {
+  console.log(newData);
+}
 export {
-  addPlacesMarkers
+  initMap,
+  reloadMap
 }

@@ -1,13 +1,18 @@
 'use strict'
 import {updateNodeContent, updateHeaderStyles} from './DOMHelper'
+import {reloadMap} from './mapHandler'
 
 let state = {
   editLayersOpen: false,
   distancesSectionActive: false,
+  capitalCitiesActive: false,
   allPopulatedPlaces: [],
+  allMax: null,
+  allMin: null,
   countryCapitals: [],
   selectedPlace: {},
-  lastClickedPlace: null
+  lastClickedPlace: null,
+  placesMapLayerData: []
 }
 
 function setSelectedPlace(place) {
@@ -22,8 +27,13 @@ function setSelectedPlace(place) {
   updateHeaderStyles()
 }
 
-function updateCityDataViewState() {
+function setCapitalsMaxAndMin() {
 
+}
+
+
+function updateCityDataViewState(placesMapLayerData) {
+  reloadMap(placesMapLayerData)
 }
 
 function updateCityData(selectedPlaceData) {
