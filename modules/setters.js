@@ -1,3 +1,5 @@
+'use strict'
+
 import {state} from './store'
 import {notifyInitActiveDataLayer,
         notifyActiveDataLayerChange,
@@ -9,6 +11,7 @@ import {previouslySelectedPlaceStyles} from './DOMHelper'
 function initState(data) {
   setAllCitiesDataSet(data)
   setCapitalCitiesDataSet(data)
+  calculateMaxAndMinPop(data)
 }
 
 function initActiveDataLayer(data) {
@@ -28,21 +31,38 @@ function setCapitalCitiesDataSet(data) {
   state.capitalCities = capitals
 }
 
+function calculateMaxAndMinPop(data) {
+  let sorted = data.filter((city) => {
+    return city.properties.pop_max > 0
+  })
+  .sort((a, b) => {
+      return parseFloat(a.properties.pop_max) - parseFloat(b.properties.pop_max)
+  })
+  setMinPop(sorted[1].properties.pop_max)
+  setMaxPop(sorted[sorted.length - 1].properties.pop_max)
+}
+
+function setMaxPop(amount) {
+  state.maxPop = amount
+}
+
+function setMinPop(amount) {
+  state.minPop = amount
+}
+
 function setActiveDataLayer(newLayer) {
   notifyActiveDataLayerChange(state.activeDataLayer, newLayer)
   state.activeDataLayer = newLayer
 }
 
 function setSelectedPlace(place) {
-  console.log(place.options.color);
   previouslySelectedPlaceStyles(state.lastClickedPlace)
   state.lastClickedPlaceColor = place.options.color
   state.lastClickedPlace = place
   state.selectedPlace = place
-  console.log('selectedPlace');
-  console.log(state.selectedPlace.options.color);
   notifyClickedPlace(place)
 }
+
 
 
 

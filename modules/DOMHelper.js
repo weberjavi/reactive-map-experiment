@@ -32,6 +32,11 @@ function addClassToNodesList(targetSelector, newClass) {
   })
 }
 
+function toggleClassFromSelector() {
+  console.log(selectNode('.edit-layers-board'));
+  selectNode('.edit-layers-board').classList.toggle('edit-layers-board--active')
+}
+
 function toggleActiveDataLayer() {
   if (state.capitalCitiesActive) {
     state.capitalCitiesActive = false
@@ -70,4 +75,5 @@ export {selectNode,
         updateHeaderStyles,
         updateCityData,
         toggleActiveDataLayer,
+        toggleClassFromSelector,
         previouslySelectedPlaceStyles}

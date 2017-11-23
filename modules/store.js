@@ -8,8 +8,8 @@ let state = {
   capitalCities: [],
   mapLayers: [],
   activeDataLayer: [],
-  allMax: null,
-  allMin: null,
+  maxPop: null,
+  minPop: null,
   selectedPlace: {},
   lastClickedPlace: null,
   lastClickedPlaceColor: ''

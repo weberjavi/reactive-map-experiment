@@ -26,6 +26,10 @@ function setPlaceColor(population) {
   }
 }
 
+function normalizePopulation(population) {
+  return (population - state.minPop) / (state.maxPop - state.minPop)
+}
+
 function creteLayersFromArray(placesArray) {
   let layers = []
   placesArray.map(place => {
@@ -36,7 +40,8 @@ function creteLayersFromArray(placesArray) {
         fillOpacity: .7,
         radius: 5,
         className: 'place-marker',
-        properties: place.properties
+        properties: place.properties,
+        normalizedPop: normalizePopulation(place.properties.pop_max)
       }).bindTooltip(`${place.properties.name}`, {className: 'custom-tooltip'})
     )
   })
@@ -76,6 +81,42 @@ function initMap(placesLayer) {
   placesLayer.addTo(map)
 }
 
+function updateStyle() {
+  this.setStyle({opacity: this.properties.normalizedPop})
+}
+
+function setRadius(population) {
+  if (population > 0) {
+    let radius = 75 * population
+    if (radius > 0 && radius <= 1) {
+      return 1
+    } else if (radius > 0){
+      return radius
+    }
+  } else {
+    return 0
+  }
+
+}
+
+function activeSizeVizz() {
+  state.activeDataLayer.eachLayer((layer) => {
+    layer.setStyle({
+      color: '#8856a7',
+      radius: setRadius(layer.options.normalizedPop)
+    })
+  })
+}
+
+function activeChloropetVizz() {
+  state.activeDataLayer.eachLayer((layer) => {
+    layer.setStyle({
+      color: setPlaceColor(layer.options.properties.pop_max),
+      radius: 5
+    })
+  })
+}
+
 function activeDataLayerChange(oldLayer, newLayer) {
   map.removeLayer(oldLayer)
   map.addLayer(newLayer)
@@ -84,7 +125,9 @@ function activeDataLayerChange(oldLayer, newLayer) {
 export {
   initMap,
   activeDataLayerChange,
-  setMapLayers
+  setMapLayers,
+  activeSizeVizz,
+  activeChloropetVizz
 }
 
 
