@@ -1,62 +1,18 @@
 'use strict'
-import {updateNodeContent, updateHeaderStyles} from './DOMHelper'
-import {reloadMap} from './mapHandler'
 
 let state = {
   editLayersOpen: false,
   distancesSectionActive: false,
   capitalCitiesActive: false,
-  allPopulatedPlaces: [],
+  allCities: [],
+  capitalCities: [],
+  mapLayers: [],
+  activeDataLayer: [],
   allMax: null,
   allMin: null,
-  countryCapitals: [],
   selectedPlace: {},
   lastClickedPlace: null,
-  placesMapLayerData: []
+  lastClickedPlaceColor: ''
 }
 
-function setSelectedPlace(place) {
-  if (state.lastClickedPlace) {
-    state.lastClickedPlace.setStyle({fillOpacity: .6, radius: state.lastClickedPlace.options.properties.rank_max * .5})
-  }
-  state.lastClickedPlace = place
-  state.selectedPlace = place
-  console.log('selectedPlace');
-  console.log(state.selectedPlace);
-  updateCityData(place.options.properties)
-  updateHeaderStyles()
-}
-
-function setCapitalsMaxAndMin() {
-
-}
-
-
-function updateCityDataViewState(placesMapLayerData) {
-  reloadMap(placesMapLayerData)
-}
-
-function updateCityData(selectedPlaceData) {
-  updateCityName(selectedPlaceData.name)
-  updateCityPopulation(selectedPlaceData.pop_max)
-  updateCityCountry(selectedPlaceData.adm0name)
-  updateCityRegion(selectedPlaceData.adm1name)
-}
-
-function updateCityName(name)  {
-  updateNodeContent('#city-name', name)
-}
-
-function updateCityPopulation(population)  {
-  updateNodeContent('#city-population', population)
-}
-
-function updateCityCountry(country)  {
-  updateNodeContent('#city-country', country)
-}
-
-function updateCityRegion(region)  {
-  updateNodeContent('#city-region', region)
-}
-
-export {state, setSelectedPlace}
+export {state}
