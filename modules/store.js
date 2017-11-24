@@ -8,6 +8,7 @@ let state = {
   capitalCities: [],
   mapLayers: [],
   activeDataLayer: [],
+  activeVisualization: 'CHOROPLETH',
   maxPop: null,
   minPop: null,
   selectedPlace: {},

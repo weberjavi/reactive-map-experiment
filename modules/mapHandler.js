@@ -12,16 +12,41 @@ let mapboxMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.pn
                 })
 
 let baseHue = 195
+let baseMultiplier = 1
+let baseOpacity = 0.4
+
+export function updateBubleOpacity(value) {
+  baseOpacity = value
+  if (state.activeVisualization !== 'CHOROPLETH') {
+    state.activeDataLayer.eachLayer((layer) => {
+      layer.setStyle({
+        fillOpacity: baseOpacity
+      })
+    })
+  }
+}
+export function updateBubleSize(value) {
+  baseMultiplier = value
+  if (state.activeVisualization !== 'CHOROPLETH') {
+    state.activeDataLayer.eachLayer((layer) => {
+      layer.setStyle({
+        radius: setRadius(layer.options.properties.pop_max)
+      })
+    })
+  }
+}
 
 export function updateHue(value) {
   baseHue = value
-  state.activeDataLayer.eachLayer((layer) => {
-    layer.setStyle({
-      color: setPlaceColor(layer.options.properties.pop_max),
-      radius: 5,
-      stroke: false
+  if (state.activeVisualization === 'CHOROPLETH') {
+    state.activeDataLayer.eachLayer((layer) => {
+      layer.setStyle({
+        color: setPlaceColor(layer.options.properties.pop_max),
+        radius: 5,
+        stroke: false
+      })
     })
-  })
+  }
 }
 
 function setPlaceColor(population) {
@@ -53,7 +78,7 @@ function creteLayersFromArray(placesArray) {
       L.circleMarker([place.geometry.coordinates[1],place.geometry.coordinates[0]], {
         color: setPlaceColor(place.properties.pop_max),
         stroke: false,
-        fillOpacity: .7,
+        fillOpacity: .4,
         radius: 5,
         className: 'place-marker',
         properties: place.properties,
@@ -75,8 +100,8 @@ function createFeatureGroup(layers) {
   return L.featureGroup(layers)
     .on('click', function(e){
       setSelectedPlace(e.layer)
-      e.layer.setRadius(8)
-      e.layer.setStyle({fillOpacity: .8, color: '#D9636C'})
+      e.layer.setRadius(14)
+      e.layer.setStyle({fillOpacity: 1})
       map.flyTo([e.layer.options.properties.latitude, e.layer.options.properties.longitude], 6)
     })
 }
@@ -102,7 +127,7 @@ function updateStyle() {
 }
 
 function setRadius(population) {
-  let log = Math.log10(population)
+  let log = Math.log10(population) * baseMultiplier
   if (log <= 0) {
     return 0
   } else if (log >= 7) {
@@ -121,7 +146,7 @@ function setRadius(population) {
 
 }
 
-function activeSizeVizz() {
+function activeBubleVizz() {
   state.activeDataLayer.eachLayer((layer) => {
     layer.setStyle({
       stroke: true,
@@ -132,7 +157,7 @@ function activeSizeVizz() {
   })
 }
 
-function activeChloropetVizz() {
+function activeChoroplethVizz() {
   state.activeDataLayer.eachLayer((layer) => {
     layer.setStyle({
       color: setPlaceColor(layer.options.properties.pop_max),
@@ -151,8 +176,8 @@ export {
   initMap,
   activeDataLayerChange,
   setMapLayers,
-  activeSizeVizz,
-  activeChloropetVizz
+  activeBubleVizz,
+  activeChoroplethVizz
 }
 
 var polyline = L.polyline(testPolyline , {color: 'red'})

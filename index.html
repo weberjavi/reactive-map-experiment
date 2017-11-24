@@ -55,45 +55,41 @@
     </header>
     <div class="legend">
       <section class="legend-change-buttons">
-        <div class="legend-button chloropet-button">CHLOROPET</div>
-        <div class="legend-button bubles-button">BUBLES</div>
+        <div class="legend-button js-active-choropleth legend-button--selected choropleth-button">CHOROPLETH</div>
+        <div class="legend-button js-active-buble bubles-button">BUBLES</div>
       </section>
-      <!-- <div class="pop-bubble pop-rank1"></div>
-      <div class="pop-bubble pop-rank2"></div>
-      <div class="pop-bubble pop-rank3"></div>
-      <div class="pop-bubble pop-rank4"></div>
-      <div class="pop-bubble pop-rank5"></div>
-      <div class="pop-bubble pop-rank6"></div>
-      <div class="edit-button">&#x270E;</div>-->
       <section class="legend-data-container">
-        <div class="chloropet-legend legend-active">
+        <div class="choropleth-legend legend-active">
           <div class="bubles-population-data">
+            <div class="choropleth-legend-title">
+              POPULATION NUMBER
+            </div>
             <div class="bubles-pop">
-              <span class="buble-pop clh-color-7"></span>
+              <span class="buble-pop chpt-color-7"></span>
               <span>> 15M</span>
             </div>
             <div class="bubles-pop">
-              <span class="buble-pop clh-color-6"></span>
+              <span class="buble-pop chpt-color-6"></span>
               <span>> 5M</span>
             </div>
             <div class="bubles-pop">
-              <span class="buble-pop clh-color-5"></span>
+              <span class="buble-pop chpt-color-5"></span>
               <span>> 1M</span>
             </div>
             <div class="bubles-pop">
-              <span class="buble-pop clh-color-4"></span>
+              <span class="buble-pop chpt-color-4"></span>
               <span>> 500K</span>
             </div>
             <div class="bubles-pop">
-              <span class="buble-pop clh-color-3"></span>
+              <span class="buble-pop chpt-color-3"></span>
               <span>> 100K</span>
             </div>
             <div class="bubles-pop">
-              <span class="buble-pop clh-color-2"></span>
+              <span class="buble-pop chpt-color-2"></span>
               <span>> 10K</span>
             </div>
             <div class="bubles-pop">
-              <span class="buble-pop clh-color-1"></span>
+              <span class="buble-pop chpt-color-1"></span>
               <span>< 10K</span>
             </div>
           </div>
@@ -118,7 +114,7 @@
         </div>
       </section>
       <section class="data-edit-container">
-        <div class="chl-edit-controls">
+        <div class="chl-edit-controls edit-controls-active">
           <div class="chl-hue-selector">
             <label for="">change data color</label>
             <input type="range"
@@ -147,36 +143,31 @@
             </div>
           </div>
         </div>
-      </section>
-      <div class="capitals-button">
-        DISPLAY CAPITAL CITIES
-      </div>
-      <!-- <div class="">
-        <label for="" class="range-label">show places between</label>
-        <input type="range"
-               min="0"
-               max="30000000"
-               value="30000000"
-               class="population-slider">
-        <input type="range"
-               min="0"
-               max="30000000"
-               value="0"
-               class="population-slider2">
-        <div class="slider-population-data">
-          <div class="min-pop-data">0</div>
-          <div class="max-pop-data">50000000</div>
+        <div class="bubles-edit-controls">
+          <div class="bubles-size-selector">
+            <label for="">change bubles size</label>
+            <input type="range"
+                   min="0.5"
+                   max="2"
+                   step="0.1"
+                   value="1"
+                   class="bubles-size-slider">
+          </div>
+          <div class="bubles-opacity-selector">
+            <label for="">change bubles opacity</label>
+            <input type="range"
+                   min="0"
+                   max="1"
+                   step="0.05"
+                   value="0.40"
+                   class="bubles-opacity-slider">
+          </div>
         </div>
-      </div>
-      <div class="">
-        <label class="checkbox-label">show only capital cities</label>
-        <input type="checkbox" name="" value=""
-               id="toggleCapitals">
+      </section>
+      <!-- <div class="capitals-button">
+        DISPLAY CAPITAL CITIES
       </div> -->
     </div>
-    <!-- <div class="edit-layers-board">
-
-    </div> -->
     <div id="map"></div>
     <div class="distances-container">
 

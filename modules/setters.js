@@ -3,7 +3,8 @@
 import {state} from './store'
 import {notifyInitActiveDataLayer,
         notifyActiveDataLayerChange,
-        notifyClickedPlace} from './eventBus'
+        notifyClickedPlace,
+        notifyActiveVisualizationChange} from './eventBus'
 import {previouslySelectedPlaceStyles} from './DOMHelper'
 
 // INIT FUNCTIONS
@@ -50,9 +51,14 @@ function setMinPop(amount) {
   state.minPop = amount
 }
 
-function setActiveDataLayer(newLayer) {
+function setActiveDataLayer(e, newLayer) {
   notifyActiveDataLayerChange(state.activeDataLayer, newLayer)
   state.activeDataLayer = newLayer
+}
+
+function setActiveVisualization(e) {
+  state.activeVisualization = e.target.innerText
+  notifyActiveVisualizationChange()
 }
 
 function setSelectedPlace(place) {
@@ -63,16 +69,14 @@ function setSelectedPlace(place) {
   notifyClickedPlace(place)
 }
 
-
-
-
-
-
-
+function setActiveLegend(legendSelected) {
+  state.activeLegend = legendSelected
+}
 
 export {
   initState,
   initActiveDataLayer,
   setActiveDataLayer,
-  setSelectedPlace
+  setSelectedPlace,
+  setActiveVisualization
  }

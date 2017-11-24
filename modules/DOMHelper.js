@@ -1,7 +1,7 @@
 'use strict'
 
 import {state} from './store'
-import {setActiveDataLayer} from './setters'
+import {setActiveDataLayer, setActiveLegend} from './setters'
 
 
 function selectNode(selector) {
@@ -14,8 +14,6 @@ function updateNodeContent(selector, data) {
 
 function previouslySelectedPlaceStyles(place) {
   if (place) {
-    console.log('prev selected');
-    console.log(place);
     place.setStyle({fillOpacity: .6, radius: 5, color: state.lastClickedPlaceColor})
   }
 }
@@ -32,9 +30,28 @@ function addClassToNodesList(targetSelector, newClass) {
   })
 }
 
-function toggleClassFromSelector() {
-  console.log(selectNode('.edit-layers-board'));
-  selectNode('.edit-layers-board').classList.toggle('edit-layers-board--active')
+function toggleClassFromLegendSelector() {
+  if (state.activeVisualization === 'CHOROPLETH') {
+    selectNode('.choropleth-button').classList.add('legend-button--selected')
+    selectNode('.bubles-button').classList.remove('legend-button--selected')
+  } else {
+    selectNode('.choropleth-button').classList.remove('legend-button--selected')
+    selectNode('.bubles-button').classList.add('legend-button--selected')
+  }
+}
+
+function toggleActiveClassFromLegend() {
+  if (state.activeVisualization === 'CHOROPLETH') {
+    selectNode('.choropleth-legend').classList.add('legend-active')
+    selectNode('.bubles-legend').classList.remove('legend-active')
+    selectNode('.chl-edit-controls').classList.add('edit-controls-active')
+    selectNode('.bubles-edit-controls').classList.remove('edit-controls-active')
+  } else {
+    selectNode('.choropleth-legend').classList.remove('legend-active')
+    selectNode('.bubles-legend').classList.add('legend-active')
+    selectNode('.chl-edit-controls').classList.remove('edit-controls-active')
+    selectNode('.bubles-edit-controls').classList.add('edit-controls-active')
+  }
 }
 
 function toggleActiveDataLayer() {
@@ -75,5 +92,6 @@ export {selectNode,
         updateHeaderStyles,
         updateCityData,
         toggleActiveDataLayer,
-        toggleClassFromSelector,
+        toggleActiveClassFromLegend,
+        toggleClassFromLegendSelector,
         previouslySelectedPlaceStyles}
