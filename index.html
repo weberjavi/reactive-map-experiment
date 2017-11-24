@@ -54,16 +54,104 @@
       </div>
     </header>
     <div class="legend">
-      <div class="pop-bubble pop-rank1"></div>
+      <section class="legend-change-buttons">
+        <div class="legend-button chloropet-button">CHLOROPET</div>
+        <div class="legend-button bubles-button">BUBLES</div>
+      </section>
+      <!-- <div class="pop-bubble pop-rank1"></div>
       <div class="pop-bubble pop-rank2"></div>
       <div class="pop-bubble pop-rank3"></div>
       <div class="pop-bubble pop-rank4"></div>
       <div class="pop-bubble pop-rank5"></div>
       <div class="pop-bubble pop-rank6"></div>
-      <div class="edit-button">&#x270E;</div>
-    </div>
-    <div class="edit-layers-board" >
-      <div class="">
+      <div class="edit-button">&#x270E;</div>-->
+      <section class="legend-data-container">
+        <div class="chloropet-legend legend-active">
+          <div class="bubles-population-data">
+            <div class="bubles-pop">
+              <span class="buble-pop clh-color-7"></span>
+              <span>> 15M</span>
+            </div>
+            <div class="bubles-pop">
+              <span class="buble-pop clh-color-6"></span>
+              <span>> 5M</span>
+            </div>
+            <div class="bubles-pop">
+              <span class="buble-pop clh-color-5"></span>
+              <span>> 1M</span>
+            </div>
+            <div class="bubles-pop">
+              <span class="buble-pop clh-color-4"></span>
+              <span>> 500K</span>
+            </div>
+            <div class="bubles-pop">
+              <span class="buble-pop clh-color-3"></span>
+              <span>> 100K</span>
+            </div>
+            <div class="bubles-pop">
+              <span class="buble-pop clh-color-2"></span>
+              <span>> 10K</span>
+            </div>
+            <div class="bubles-pop">
+              <span class="buble-pop clh-color-1"></span>
+              <span>< 10K</span>
+            </div>
+          </div>
+        </div>
+        <div class="bubles-legend">
+          <div class="bubles">
+            <span class="buble buble-1"></span>
+            <span class="buble buble-2"></span>
+            <span class="buble buble-3"></span>
+            <span class="buble buble-4"></span>
+            <span class="buble buble-5"></span>
+            <span class="buble buble-6"></span>
+          </div>
+          <div class="bubles-population-data">
+            <div class="bubles-pop">100k</div>
+            <div class="bubles-pop">100k</div>
+            <div class="bubles-pop">100k</div>
+            <div class="bubles-pop">100k</div>
+            <div class="bubles-pop">100k</div>
+            <div class="bubles-pop">100k</div>
+          </div>
+        </div>
+      </section>
+      <section class="data-edit-container">
+        <div class="chl-edit-controls">
+          <div class="chl-hue-selector">
+            <label for="">change data color</label>
+            <input type="range"
+                   min="1"
+                   max="360"
+                   value="195"
+                   class="hue-slider">
+          </div>
+          <div class="chl-pop-selector">
+            <label for="" class="">show places between</label>
+            <input type="range"
+                   step="1000"
+                   min="0"
+                   max="36000000"
+                   value="36000000"
+                   class="population-slider">
+            <input type="range"
+                   step="1000"
+                   min="0"
+                   max="36000000"
+                   value="0"
+                   class="population-slider2">
+            <div class="slider-population-data">
+              <div class="min-pop-data">0</div>
+              <div class="max-pop-data">36000000</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="capitals-button">
+        DISPLAY CAPITAL CITIES
+      </div>
+      <!-- <div class="">
         <label for="" class="range-label">show places between</label>
         <input type="range"
                min="0"
@@ -84,19 +172,11 @@
         <label class="checkbox-label">show only capital cities</label>
         <input type="checkbox" name="" value=""
                id="toggleCapitals">
-      </div>
-      <div class="">
-        <label class="checkbox-label" id="chloropetVizzButton">active chloropet</label>
-      </div>
-      <div class="">
-        <label class="checkbox-label" id="sizeVizzButton">active size</label>
-      </div>
-
-      <div class="">
-        <label class="checkbox-label">show distances info</label>
-        <input type="checkbox" name="" value="">
-      </div>
+      </div> -->
     </div>
+    <!-- <div class="edit-layers-board">
+
+    </div> -->
     <div id="map"></div>
     <div class="distances-container">
 

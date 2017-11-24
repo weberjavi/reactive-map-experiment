@@ -3,7 +3,8 @@ import {placesURL} from './config'
 import {initMap,
         setMapLayers,
         activeSizeVizz,
-        activeChloropetVizz} from './modules/mapHandler'
+        activeChloropetVizz,
+        updateHue} from './modules/mapHandler'
 import {fetchPlacesData} from './modules/dataFetcher'
 import {state} from './modules/store'
 import {initState,
@@ -26,10 +27,23 @@ fetchPlacesData(placesURL)
 
   //MOUSE EVENTS
 
-  selectNode('#toggleCapitals').onclick = toggleActiveDataLayer
+  selectNode('.capitals-button').onclick = toggleActiveDataLayer
 
-  selectNode('#sizeVizzButton').onclick = activeSizeVizz
+  selectNode('.bubles-button').onclick = activeSizeVizz
 
-  selectNode('#chloropetVizzButton').onclick = activeChloropetVizz
+  selectNode('.chloropet-button').onclick = activeChloropetVizz
 
-  selectNode('.edit-button').onclick =  toggleClassFromSelector
+
+  selectNode('.hue-slider').onchange = onChangeFun
+
+  // selectNode('.population-slider').onchange = onChangeFun
+  //
+  // selectNode('.population-slider2').onchange = onChangeFun
+
+  function onChangeFun(e) {
+    console.log(e.target.value);
+    document.documentElement.style.setProperty('--h', e.target.value)
+    updateHue(Number(e.target.value))
+  }
+
+  // selectNode('.edit-button').onclick =  toggleClassFromSelector

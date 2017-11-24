@@ -2,6 +2,7 @@
 import L from 'leaflet'
 import {state} from './store'
 import {setSelectedPlace} from './setters'
+import {testPolyline} from '../config'
 
 let mapboxMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                     attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
@@ -10,19 +11,34 @@ let mapboxMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.pn
                     accessToken: 'pk.eyJ1IjoiamF2aWFiaWEiLCJhIjoiS1ZyQ3BQYyJ9.v8yJTbF879AQ_t6j5XafiQ'
                 })
 
+let baseHue = 195
+
+export function updateHue(value) {
+  baseHue = value
+  state.activeDataLayer.eachLayer((layer) => {
+    layer.setStyle({
+      color: setPlaceColor(layer.options.properties.pop_max),
+      radius: 5,
+      stroke: false
+    })
+  })
+}
+
 function setPlaceColor(population) {
-  if (population < 1000) {
-    return '#edf8fb'
-  } else if (population < 10000) {
-    return '#bfd3e6'
-  } else if (population < 100000) {
-    return '#9ebcda'
-  } else if (population < 1000000) {
-    return '#8c96c6'
-  } else if (population < 10000000) {
-    return '#8856a7'
-  } else if (population < 50000000) {
-    return '#810f7c'
+  if (population > 15000000) {
+    return `hsl(${baseHue + 30},100%, 20%)`
+  } else if (population > 5000000) {
+    return `hsl(${baseHue + 30},100%, 40%)`
+  } else if (population > 1000000) {
+    return `hsl(${baseHue + 30},100%, 60%)`
+  } else if (population > 500000) {
+    return `hsl(${baseHue},100%, 50%)`
+  } else if (population > 100000) {
+    return `hsl(${baseHue},100%, 65%)`
+  } else if (population > 10000) {
+    return `hsl(${baseHue},100%, 80%)`
+  } else {
+    return `hsl(${baseHue},100%, 95%)`
   }
 }
 
@@ -86,15 +102,21 @@ function updateStyle() {
 }
 
 function setRadius(population) {
-  if (population > 0) {
-    let radius = 75 * population
-    if (radius > 0 && radius <= 1) {
-      return 1
-    } else if (radius > 0){
-      return radius
-    }
-  } else {
+  let log = Math.log10(population)
+  if (log <= 0) {
     return 0
+  } else if (log >= 7) {
+    return log * 3
+  } else if (log >= 6.5) {
+    return log * 2
+  } else if(log >= 6){
+    return log * 1.5
+  } else if(log >= 5){
+    return log * 1.2
+  } else if(log >= 4){
+    return log
+  } else {
+    return log * 0.75
   }
 
 }
@@ -102,8 +124,10 @@ function setRadius(population) {
 function activeSizeVizz() {
   state.activeDataLayer.eachLayer((layer) => {
     layer.setStyle({
-      color: '#8856a7',
-      radius: setRadius(layer.options.normalizedPop)
+      stroke: true,
+      weight: .5,
+      color: '#8c96c6',
+      radius: setRadius(layer.options.properties.pop_max)
     })
   })
 }
@@ -112,7 +136,8 @@ function activeChloropetVizz() {
   state.activeDataLayer.eachLayer((layer) => {
     layer.setStyle({
       color: setPlaceColor(layer.options.properties.pop_max),
-      radius: 5
+      radius: 5,
+      stroke: false
     })
   })
 }
@@ -130,10 +155,7 @@ export {
   activeChloropetVizz
 }
 
-
-
-
-
+var polyline = L.polyline(testPolyline , {color: 'red'})
 
 
 
@@ -141,3 +163,7 @@ var map = L.map('map', {
     renderer: L.canvas(),
     layers: [mapboxMap]
 }).setView([37, 10], 3);
+
+
+map.addLayer(polyline)
+// map.fitBounds(polyline.getBounds());
