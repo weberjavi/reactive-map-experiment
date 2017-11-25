@@ -281,6 +281,10 @@ body {
   cursor: pointer;
 }
 
+.capitals-active {
+  background-color: white;
+}
+
 .chl-hue-selector,
 .bubles-size-selector {
   margin: 1rem 0;

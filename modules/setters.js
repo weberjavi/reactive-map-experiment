@@ -62,6 +62,7 @@ function _setMinPop(amount) {
 // PUBLIC SETTER FUNCTIONS
 
 function setActiveDataLayer(newLayer) {
+  state.capitalCitiesActive != state.capitalCitiesActive
   notifyActiveDataLayerChange(state.activeDataLayer, newLayer)
   state.activeDataLayer = newLayer
 }

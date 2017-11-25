@@ -1,10 +1,9 @@
 'use strict'
-
 import {placesURL} from './config'
-import {fetchPlacesData} from './modules/dataFetcher'
-import {initState} from './modules/setters'
 import {initMap} from './modules/mapHandler'
+import {fetchPlacesData} from './modules/dataFetcher'
 import {state} from './modules/store'
+import {initState} from './modules/setters'
 import eventsHandler from './modules/DOMeventsHandler'
 
 fetchPlacesData(placesURL)

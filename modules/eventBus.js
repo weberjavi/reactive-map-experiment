@@ -1,21 +1,25 @@
 'use strict'
 import {state} from './store'
+
 import {initMap,
   initMapLayers,
-        activeDataLayerChange,
-        activeBubleVizz,
-        activeChoroplethVizz,
-        updateBubleOpacity,
-        updateBubleSize,
-        updateMapHue
-      } from './mapHandler'
-import {updateCityData,
-        updateHeaderStyles,
-        previouslySelectedPlaceStyles,
-        toggleClassFromLegendSelector,
-        toggleActiveClassFromLegend,
-        updateDomHue
-      } from './DOMHelper'
+  toggleCapitalsView,
+  activeBubleVizz,
+  activeChoroplethVizz,
+  updateBubleOpacity,
+  updateBubleSize,
+  updateMapHue
+} from './mapHandler'
+
+import {
+  updateCityData,
+  updateHeaderStyles,
+  previouslySelectedPlaceStyles,
+  toggleClassFromLegendSelector,
+  toggleActiveClassFromLegend,
+  updateDomHue,
+  updateCapitalsButtonClass
+} from './DOMHelper'
 
 
 function notifyStateInitialization() {
@@ -27,7 +31,8 @@ function notifyInitActiveDataLayer() {
 }
 
 function notifyActiveDataLayerChange(oldLayer, newLayer) {
-  activeDataLayerChange(oldLayer, newLayer)
+  updateCapitalsButtonClass(state.capitalCitiesActive)
+  toggleCapitalsView(oldLayer, newLayer)
   toggleClassFromLegendSelector()
 }
 

@@ -41,3 +41,9 @@ selectNode('.capitals-button').onclick = toggleActiveDataLayer
 selectNode('.bubles-button').onclick = setActiveVisualization
 
 selectNode('.choropleth-button').onclick = setActiveVisualization
+
+
+  // selectNode('.population-slider').onchange = onChangeFun
+  //
+  // selectNode('.population-slider2').onchange = onChangeFun
+  //

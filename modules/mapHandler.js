@@ -22,12 +22,14 @@ export function updateBubleSize(activeLayer, multiplier) {
   if (state.activeVisualization !== 'CHOROPLETH') {
     activeLayer.eachLayer((layer) => {
       layer.setStyle({
-        radius: setRadius(layer.options.properties.pop_max, multiplier)
+        radius: setRadius(layer.options.properties.pop_max, multiplier),
+        color: '#555',
+        weight: .5,
+        stroke: true
       })
     })
   }
 }
-
 export function updateMapHue(activeLayer, baseHue) {
   if (state.activeVisualization === 'CHOROPLETH') {
     activeLayer.eachLayer((layer) => {
@@ -58,17 +60,23 @@ function setPlaceColor(population, baseHue = 195) {
   }
 }
 
+function initMapStyles(activeLayer) {
+  activeLayer.eachLayer((layer) => {
+    layer.setStyle({
+      color: setPlaceColor(layer.options.properties.pop_max, state.baseHue),
+      radius: 5,
+      stroke: false,
+      fillOpacity: .4
+    })
+  })
+}
+
 
 function creteLayersFromArray(placesArray) {
   let layers = []
   placesArray.map(place => {
     layers.push(
       L.circleMarker([place.geometry.coordinates[1],place.geometry.coordinates[0]], {
-        // color: setPlaceColor(place.properties.pop_max),
-        stroke: false,
-        fillOpacity: .4,
-        radius: 5,
-        // className: 'place-marker',
         properties: place.properties
       }).bindTooltip(`${place.properties.name}`, {className: 'custom-tooltip'})
     )
@@ -106,11 +114,8 @@ function initMapLayers(allPlacesArray, capitalPlacesArray) {
 
 
 function initMap(placesLayer) {
+  initMapStyles(placesLayer)
   placesLayer.addTo(map)
-}
-
-function updateStyle() {
-  this.setStyle({opacity: this.properties.normalizedPop})
 }
 
 function setRadius(population, multiplier = 1) {
@@ -138,8 +143,8 @@ function activeBubleVizz() {
     layer.setStyle({
       stroke: true,
       weight: .5,
-      color: '#8c96c6',
-      radius: setRadius(layer.options.properties.pop_max)
+      color: '#555',
+      radius: setRadius(layer.options.properties.pop_max, state.baseMultiplier)
     })
   })
 }
@@ -147,27 +152,28 @@ function activeBubleVizz() {
 function activeChoroplethVizz() {
   state.activeDataLayer.eachLayer((layer) => {
     layer.setStyle({
-      color: setPlaceColor(layer.options.properties.pop_max),
+      color: setPlaceColor(layer.options.properties.pop_max, state.baseHue),
       radius: 5,
       stroke: false
     })
   })
 }
 
-function activeDataLayerChange(oldLayer, newLayer) {
-  console.log('state');
-  console.log(state);
-  console.log('old');
-  console.log(oldLayer);
-  console.log('new');
-  console.log(newLayer);
+function toggleCapitalsView(oldLayer, newLayer) {
   map.removeLayer(oldLayer)
+  updateBubleOpacity(newLayer, state.baseOpacity)
+
+  if (state.activeVisualization === 'CHOROPLETH') {
+    updateMapHue(newLayer, state.baseHue)
+  } else {
+    updateBubleSize(newLayer, state.baseMultiplier)
+  }
   map.addLayer(newLayer)
 }
 
 export {
   initMap,
-  activeDataLayerChange,
+  toggleCapitalsView,
   initMapLayers,
   activeBubleVizz,
   activeChoroplethVizz

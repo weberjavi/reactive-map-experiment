@@ -64,6 +64,14 @@ function toggleActiveDataLayer() {
   }
 }
 
+function updateCapitalsButtonClass(capitals) {
+  if (capitals) {
+    selectNode('.capitals-button').classList.add('capitals-active')
+  } else {
+    selectNode('.capitals-button').classList.remove('capitals-active')
+  }
+}
+
 function updateCityData(selectedPlaceData) {
   updateNodeContent('#city-name', selectedPlaceData.name)
   updateNodeContent('#city-population', selectedPlaceData.pop_max)
@@ -84,5 +92,6 @@ export {
   toggleActiveClassFromLegend,
   toggleClassFromLegendSelector,
   previouslySelectedPlaceStyles,
-  updateDomHue
+  updateDomHue,
+  updateCapitalsButtonClass
 }
