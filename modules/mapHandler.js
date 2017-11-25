@@ -11,37 +11,28 @@ let mapboxMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.pn
                     accessToken: 'pk.eyJ1IjoiamF2aWFiaWEiLCJhIjoiS1ZyQ3BQYyJ9.v8yJTbF879AQ_t6j5XafiQ'
                 })
 
-let baseHue = 195
-let baseMultiplier = 1
-let baseOpacity = 0.4
-
-export function updateBubleOpacity(value) {
-  baseOpacity = value
-  if (state.activeVisualization !== 'CHOROPLETH') {
-    state.activeDataLayer.eachLayer((layer) => {
+export function updateBubleOpacity(activeLayer, opacity) {
+    activeLayer.eachLayer((layer) => {
       layer.setStyle({
-        fillOpacity: baseOpacity
+        fillOpacity: opacity
       })
     })
-  }
 }
-export function updateBubleSize(value) {
-  baseMultiplier = value
+export function updateBubleSize(activeLayer, multiplier) {
   if (state.activeVisualization !== 'CHOROPLETH') {
-    state.activeDataLayer.eachLayer((layer) => {
+    activeLayer.eachLayer((layer) => {
       layer.setStyle({
-        radius: setRadius(layer.options.properties.pop_max)
+        radius: setRadius(layer.options.properties.pop_max, multiplier)
       })
     })
   }
 }
 
-export function updateHue(value) {
-  baseHue = value
+export function updateMapHue(activeLayer, baseHue) {
   if (state.activeVisualization === 'CHOROPLETH') {
-    state.activeDataLayer.eachLayer((layer) => {
+    activeLayer.eachLayer((layer) => {
       layer.setStyle({
-        color: setPlaceColor(layer.options.properties.pop_max),
+        color: setPlaceColor(layer.options.properties.pop_max, baseHue),
         radius: 5,
         stroke: false
       })
@@ -49,7 +40,7 @@ export function updateHue(value) {
   }
 }
 
-function setPlaceColor(population) {
+function setPlaceColor(population, baseHue = 195) {
   if (population > 15000000) {
     return `hsl(${baseHue + 30},100%, 20%)`
   } else if (population > 5000000) {
@@ -67,22 +58,18 @@ function setPlaceColor(population) {
   }
 }
 
-function normalizePopulation(population) {
-  return (population - state.minPop) / (state.maxPop - state.minPop)
-}
 
 function creteLayersFromArray(placesArray) {
   let layers = []
   placesArray.map(place => {
     layers.push(
       L.circleMarker([place.geometry.coordinates[1],place.geometry.coordinates[0]], {
-        color: setPlaceColor(place.properties.pop_max),
+        // color: setPlaceColor(place.properties.pop_max),
         stroke: false,
         fillOpacity: .4,
         radius: 5,
-        className: 'place-marker',
-        properties: place.properties,
-        normalizedPop: normalizePopulation(place.properties.pop_max)
+        // className: 'place-marker',
+        properties: place.properties
       }).bindTooltip(`${place.properties.name}`, {className: 'custom-tooltip'})
     )
   })
@@ -126,8 +113,8 @@ function updateStyle() {
   this.setStyle({opacity: this.properties.normalizedPop})
 }
 
-function setRadius(population) {
-  let log = Math.log10(population) * baseMultiplier
+function setRadius(population, multiplier = 1) {
+  let log = Math.log10(population) * multiplier
   if (log <= 0) {
     return 0
   } else if (log >= 7) {
@@ -168,6 +155,12 @@ function activeChoroplethVizz() {
 }
 
 function activeDataLayerChange(oldLayer, newLayer) {
+  console.log('state');
+  console.log(state);
+  console.log('old');
+  console.log(oldLayer);
+  console.log('new');
+  console.log(newLayer);
   map.removeLayer(oldLayer)
   map.addLayer(newLayer)
 }

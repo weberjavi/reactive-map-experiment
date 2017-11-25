@@ -13,7 +13,10 @@ let state = {
   minPop: null,
   selectedPlace: {},
   lastClickedPlace: null,
-  lastClickedPlaceColor: ''
+  lastClickedPlaceColor: '',
+  baseHue: 195,
+  baseMultiplier: 1,
+  baseOpacity: .4
 }
 
 export {state}

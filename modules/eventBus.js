@@ -3,11 +3,18 @@ import {state} from './store'
 import {initMap,
         activeDataLayerChange,
         activeBubleVizz,
-        activeChoroplethVizz} from './mapHandler'
+        activeChoroplethVizz,
+        updateBubleOpacity,
+        updateBubleSize,
+        updateMapHue
+      } from './mapHandler'
 import {updateCityData,
         updateHeaderStyles,
+        previouslySelectedPlaceStyles,
         toggleClassFromLegendSelector,
-        toggleActiveClassFromLegend} from './DOMHelper'
+        toggleActiveClassFromLegend,
+        updateDomHue
+      } from './DOMHelper'
 
 function notifyInitActiveDataLayer() {
   initMap(state.activeDataLayer)
@@ -23,6 +30,10 @@ function notifyClickedPlace(place) {
   updateHeaderStyles()
 }
 
+function notifySelectedPlaceChange() {
+  previouslySelectedPlaceStyles(state.lastClickedPlace)
+}
+
 function notifyActiveVisualizationChange() {
   if (state.activeVisualization === 'CHOROPLETH') {
     activeChoroplethVizz()
@@ -35,7 +46,25 @@ function notifyActiveVisualizationChange() {
   }
 }
 
+function notifyBaseOpacityChange() {
+  updateBubleOpacity(state.activeDataLayer, state.baseOpacity)
+}
+
+function notifyBubleSizeChange() {
+  updateBubleSize(state.activeDataLayer, state.baseMultiplier)
+}
+
+function notifyBaseHueChange() {
+  updateDomHue(state.baseHue)
+  updateMapHue(state.activeDataLayer, state.baseHue)
+}
+
 export {notifyInitActiveDataLayer,
         notifyActiveDataLayerChange,
         notifyClickedPlace,
-        notifyActiveVisualizationChange}
+        notifySelectedPlaceChange,
+        notifyActiveVisualizationChange,
+        notifyBaseOpacityChange,
+        notifyBubleSizeChange,
+        notifyBaseHueChange
+      }

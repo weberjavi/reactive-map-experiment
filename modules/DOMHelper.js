@@ -1,7 +1,7 @@
 'use strict'
 
 import {state} from './store'
-import {setActiveDataLayer, setActiveLegend} from './setters'
+import {setActiveDataLayer} from './setters'
 
 
 function selectNode(selector) {
@@ -65,33 +65,24 @@ function toggleActiveDataLayer() {
 }
 
 function updateCityData(selectedPlaceData) {
-  updateCityName(selectedPlaceData.name)
-  updateCityPopulation(selectedPlaceData.pop_max)
-  updateCityCountry(selectedPlaceData.adm0name)
-  updateCityRegion(selectedPlaceData.adm1name)
+  updateNodeContent('#city-name', selectedPlaceData.name)
+  updateNodeContent('#city-population', selectedPlaceData.pop_max)
+  updateNodeContent('#city-country', selectedPlaceData.adm0name)
+  updateNodeContent('#city-region', selectedPlaceData.adm1name)
 }
 
-function updateCityName(name)  {
-  updateNodeContent('#city-name', name)
+function updateDomHue(baseHue) {
+  document.documentElement.style.setProperty('--h', baseHue)
 }
 
-function updateCityPopulation(population)  {
-  updateNodeContent('#city-population', population)
+export {
+  selectNode,
+  updateNodeContent,
+  updateHeaderStyles,
+  updateCityData,
+  toggleActiveDataLayer,
+  toggleActiveClassFromLegend,
+  toggleClassFromLegendSelector,
+  previouslySelectedPlaceStyles,
+  updateDomHue
 }
-
-function updateCityCountry(country)  {
-  updateNodeContent('#city-country', country)
-}
-
-function updateCityRegion(region)  {
-  updateNodeContent('#city-region', region)
-}
-
-export {selectNode,
-        updateNodeContent,
-        updateHeaderStyles,
-        updateCityData,
-        toggleActiveDataLayer,
-        toggleActiveClassFromLegend,
-        toggleClassFromLegendSelector,
-        previouslySelectedPlaceStyles}

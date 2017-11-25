@@ -4,54 +4,60 @@ import {state} from './store'
 import {notifyInitActiveDataLayer,
         notifyActiveDataLayerChange,
         notifyClickedPlace,
-        notifyActiveVisualizationChange} from './eventBus'
-import {previouslySelectedPlaceStyles} from './DOMHelper'
+        notifySelectedPlaceChange,
+        notifyActiveVisualizationChange,
+        notifyBaseOpacityChange,
+        notifyBubleSizeChange,
+        notifyBaseHueChange
+      } from './eventBus'
 
 // INIT FUNCTIONS
 
 function initState(data) {
-  setAllCitiesDataSet(data)
-  setCapitalCitiesDataSet(data)
-  calculateMaxAndMinPop(data)
+  _setAllCitiesDataSet(data)
+  _setCapitalCitiesDataSet(data)
+  _calculateMaxAndMinPop(data)
 }
 
 function initActiveDataLayer(data) {
   state.activeDataLayer = data
 }
 
-// SETTER FUNCTIONS
+// PRIVATE SETTER FUNCTIONS
 
-function setAllCitiesDataSet(data) {
+function _setAllCitiesDataSet(data) {
   state.allCities = data
 }
 
-function setCapitalCitiesDataSet(data) {
+function _setCapitalCitiesDataSet(data) {
   let capitals = data.filter(place => {
     return place.properties.adm0cap === 1
   })
   state.capitalCities = capitals
 }
 
-function calculateMaxAndMinPop(data) {
+function _calculateMaxAndMinPop(data) {
   let sorted = data.filter((city) => {
     return city.properties.pop_max > 0
   })
   .sort((a, b) => {
       return parseFloat(a.properties.pop_max) - parseFloat(b.properties.pop_max)
   })
-  setMinPop(sorted[1].properties.pop_max)
-  setMaxPop(sorted[sorted.length - 1].properties.pop_max)
+  _setMinPop(sorted[1].properties.pop_max)
+  _setMaxPop(sorted[sorted.length - 1].properties.pop_max)
 }
 
-function setMaxPop(amount) {
+function _setMaxPop(amount) {
   state.maxPop = amount
 }
 
-function setMinPop(amount) {
+function _setMinPop(amount) {
   state.minPop = amount
 }
 
-function setActiveDataLayer(e, newLayer) {
+// PUBLIC SETTER FUNCTIONS
+
+function setActiveDataLayer(newLayer) {
   notifyActiveDataLayerChange(state.activeDataLayer, newLayer)
   state.activeDataLayer = newLayer
 }
@@ -62,15 +68,26 @@ function setActiveVisualization(e) {
 }
 
 function setSelectedPlace(place) {
-  previouslySelectedPlaceStyles(state.lastClickedPlace)
+  notifySelectedPlaceChange()
   state.lastClickedPlaceColor = place.options.color
   state.lastClickedPlace = place
   state.selectedPlace = place
   notifyClickedPlace(place)
 }
 
-function setActiveLegend(legendSelected) {
-  state.activeLegend = legendSelected
+function setOpacity(value) {
+  state.baseOpacity = value
+  notifyBaseOpacityChange()
+}
+
+function setBubleSize(value) {
+  state.baseMultiplier = value
+  notifyBubleSizeChange()
+}
+
+function setHue(value) {
+  state.baseHue = value
+  notifyBaseHueChange()
 }
 
 export {
@@ -78,5 +95,8 @@ export {
   initActiveDataLayer,
   setActiveDataLayer,
   setSelectedPlace,
-  setActiveVisualization
+  setActiveVisualization,
+  setOpacity,
+  setBubleSize,
+  setHue
  }
