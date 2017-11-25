@@ -84,10 +84,13 @@ function updateDomHue(baseHue) {
 }
 
 function initPopSliderMinMaxValues(min, max) {
-  // selectNode('.population-slider')
-  // selectNode('.population-slider2')
   selectNode('.min-pop-data').innerText = min
   selectNode('.max-pop-data').innerText = max
+}
+
+function updatePopSliderValues(min, max) {
+  selectNode('.min-pop-data').innerHTML = min
+  selectNode('.max-pop-data').innerHTML = max
 }
 
 export {
@@ -101,5 +104,6 @@ export {
   previouslySelectedPlaceStyles,
   updateDomHue,
   updateCapitalsButtonClass,
-  initPopSliderMinMaxValues
+  initPopSliderMinMaxValues,
+  updatePopSliderValues
 }

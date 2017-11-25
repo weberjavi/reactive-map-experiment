@@ -10,7 +10,8 @@ import {
   notifyActiveVisualizationChange,
   notifyBaseOpacityChange,
   notifyBubleSizeChange,
-  notifyBaseHueChange
+  notifyBaseHueChange,
+  notifyPopulationFilterChange
 } from './eventBus'
 
 // INIT FUNCTIONS
@@ -95,6 +96,16 @@ function setHue(value) {
   notifyBaseHueChange()
 }
 
+function setMinPopulation(value) {
+  state.minPop = value
+  notifyPopulationFilterChange()
+}
+
+function setMaxPopulation(value) {
+  state.maxPop = value
+  notifyPopulationFilterChange()
+}
+
 export {
   initState,
   setActiveDataLayer,
@@ -102,5 +113,7 @@ export {
   setActiveVisualization,
   setOpacity,
   setBubleSize,
-  setHue
+  setHue,
+  setMinPopulation,
+  setMaxPopulation
  }

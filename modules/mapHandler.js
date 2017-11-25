@@ -41,8 +41,17 @@ export function updateMapHue(activeLayer, baseHue) {
     })
   }
 }
-
-export function updateVisiblePopulationPlaces( min, max) {
+export function triggerMapPopulationFilter(activeLayer, min, max) {
+  activeLayer.eachLayer((layer) => {
+    var population = layer.options.properties.pop_max
+    if (population >= min && population <= max) {
+      layer._path.classList.remove('display-none')
+    } else {
+      layer._path.classList.add('display-none')
+    }
+  })
+}
+export function updateVisiblePopulationPlaces(min, max) {
     state.activeDataLayer.eachLayer((layer) => {
       var population = layer.options.properties.pop_max
       if (population >= min && population <= max) {
@@ -173,13 +182,13 @@ function activeChoroplethVizz() {
 function toggleCapitalsView(oldLayer, newLayer) {
   map.removeLayer(oldLayer)
   updateBubleOpacity(newLayer, state.baseOpacity)
-
   if (state.activeVisualization === 'CHOROPLETH') {
     updateMapHue(newLayer, state.baseHue)
   } else {
     updateBubleSize(newLayer, state.baseMultiplier)
   }
   map.addLayer(newLayer)
+  triggerMapPopulationFilter(newLayer, state.minPop, state.maxPop)
 }
 
 export {

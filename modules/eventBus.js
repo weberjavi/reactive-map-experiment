@@ -8,7 +8,8 @@ import {initMap,
   activeChoroplethVizz,
   updateBubleOpacity,
   updateBubleSize,
-  updateMapHue
+  updateMapHue,
+  triggerMapPopulationFilter
 } from './mapHandler'
 
 import {
@@ -19,7 +20,8 @@ import {
   toggleActiveClassFromLegend,
   updateDomHue,
   updateCapitalsButtonClass,
-  initPopSliderMinMaxValues
+  initPopSliderMinMaxValues,
+  updatePopSliderValues
 } from './DOMHelper'
 
 
@@ -72,6 +74,11 @@ function notifyBaseHueChange() {
   updateMapHue(state.activeDataLayer, state.baseHue)
 }
 
+function notifyPopulationFilterChange() {
+  triggerMapPopulationFilter(state.activeDataLayer, state.minPop, state.maxPop)
+  updatePopSliderValues(state.minPop, state.maxPop)
+}
+
 export {
   notifyStateInitialization,
   notifyInitActiveDataLayer,
@@ -81,5 +88,6 @@ export {
   notifyActiveVisualizationChange,
   notifyBaseOpacityChange,
   notifyBubleSizeChange,
-  notifyBaseHueChange
+  notifyBaseHueChange,
+  notifyPopulationFilterChange
 }
