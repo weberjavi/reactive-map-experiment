@@ -98,7 +98,7 @@ function buildPlacesLayer(placesArray) {
   return createFeatureGroup(layers)
 }
 
-function setMapLayers(allPlacesArray, capitalPlacesArray) {
+function initMapLayers(allPlacesArray, capitalPlacesArray) {
   let allPlacesLayer = buildPlacesLayer(allPlacesArray)
   let capitalPlacesLayer = buildPlacesLayer(capitalPlacesArray)
   state.mapLayers = [allPlacesLayer,capitalPlacesLayer]
@@ -168,7 +168,7 @@ function activeDataLayerChange(oldLayer, newLayer) {
 export {
   initMap,
   activeDataLayerChange,
-  setMapLayers,
+  initMapLayers,
   activeBubleVizz,
   activeChoroplethVizz
 }

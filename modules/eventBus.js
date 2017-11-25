@@ -1,6 +1,7 @@
 'use strict'
 import {state} from './store'
 import {initMap,
+  initMapLayers,
         activeDataLayerChange,
         activeBubleVizz,
         activeChoroplethVizz,
@@ -15,6 +16,11 @@ import {updateCityData,
         toggleActiveClassFromLegend,
         updateDomHue
       } from './DOMHelper'
+
+
+function notifyStateInitialization() {
+  initMapLayers(state.allCities, state.capitalCities)
+}
 
 function notifyInitActiveDataLayer() {
   initMap(state.activeDataLayer)
@@ -59,12 +65,14 @@ function notifyBaseHueChange() {
   updateMapHue(state.activeDataLayer, state.baseHue)
 }
 
-export {notifyInitActiveDataLayer,
-        notifyActiveDataLayerChange,
-        notifyClickedPlace,
-        notifySelectedPlaceChange,
-        notifyActiveVisualizationChange,
-        notifyBaseOpacityChange,
-        notifyBubleSizeChange,
-        notifyBaseHueChange
-      }
+export {
+  notifyStateInitialization,
+  notifyInitActiveDataLayer,
+  notifyActiveDataLayerChange,
+  notifyClickedPlace,
+  notifySelectedPlaceChange,
+  notifyActiveVisualizationChange,
+  notifyBaseOpacityChange,
+  notifyBubleSizeChange,
+  notifyBaseHueChange
+}

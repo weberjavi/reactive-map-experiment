@@ -1,15 +1,17 @@
 'use strict'
 
 import {state} from './store'
-import {notifyInitActiveDataLayer,
-        notifyActiveDataLayerChange,
-        notifyClickedPlace,
-        notifySelectedPlaceChange,
-        notifyActiveVisualizationChange,
-        notifyBaseOpacityChange,
-        notifyBubleSizeChange,
-        notifyBaseHueChange
-      } from './eventBus'
+import {
+  notifyStateInitialization,
+  notifyInitActiveDataLayer,
+  notifyActiveDataLayerChange,
+  notifyClickedPlace,
+  notifySelectedPlaceChange,
+  notifyActiveVisualizationChange,
+  notifyBaseOpacityChange,
+  notifyBubleSizeChange,
+  notifyBaseHueChange
+} from './eventBus'
 
 // INIT FUNCTIONS
 
@@ -17,10 +19,12 @@ function initState(data) {
   _setAllCitiesDataSet(data)
   _setCapitalCitiesDataSet(data)
   _calculateMaxAndMinPop(data)
+  notifyStateInitialization()
+  _setInitialActiveDataLayer()
 }
 
-function initActiveDataLayer(data) {
-  state.activeDataLayer = data
+function _setInitialActiveDataLayer() {
+  state.activeDataLayer = state.mapLayers[0]
 }
 
 // PRIVATE SETTER FUNCTIONS
@@ -92,7 +96,6 @@ function setHue(value) {
 
 export {
   initState,
-  initActiveDataLayer,
   setActiveDataLayer,
   setSelectedPlace,
   setActiveVisualization,
