@@ -18,12 +18,14 @@ import {
   toggleClassFromLegendSelector,
   toggleActiveClassFromLegend,
   updateDomHue,
-  updateCapitalsButtonClass
+  updateCapitalsButtonClass,
+  initPopSliderMinMaxValues
 } from './DOMHelper'
 
 
 function notifyStateInitialization() {
   initMapLayers(state.allCities, state.capitalCities)
+  initPopSliderMinMaxValues(state.minPop, state.maxPop)
 }
 
 function notifyInitActiveDataLayer() {

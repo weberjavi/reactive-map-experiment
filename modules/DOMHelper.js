@@ -83,6 +83,13 @@ function updateDomHue(baseHue) {
   document.documentElement.style.setProperty('--h', baseHue)
 }
 
+function initPopSliderMinMaxValues(min, max) {
+  // selectNode('.population-slider')
+  // selectNode('.population-slider2')
+  selectNode('.min-pop-data').innerText = min
+  selectNode('.max-pop-data').innerText = max
+}
+
 export {
   selectNode,
   updateNodeContent,
@@ -93,5 +100,6 @@ export {
   toggleClassFromLegendSelector,
   previouslySelectedPlaceStyles,
   updateDomHue,
-  updateCapitalsButtonClass
+  updateCapitalsButtonClass,
+  initPopSliderMinMaxValues
 }

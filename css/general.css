@@ -406,3 +406,11 @@ body {
   color: #D9636C;
   border: none;
 }
+
+.display-none {
+  display: none !important;
+}
+
+.display-block {
+  display: block !important;
+}

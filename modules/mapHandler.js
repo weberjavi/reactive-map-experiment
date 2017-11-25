@@ -42,6 +42,17 @@ export function updateMapHue(activeLayer, baseHue) {
   }
 }
 
+export function updateVisiblePopulationPlaces( min, max) {
+    state.activeDataLayer.eachLayer((layer) => {
+      var population = layer.options.properties.pop_max
+      if (population >= min && population <= max) {
+        layer._path.classList.remove('display-none')
+      } else {
+        layer._path.classList.add('display-none')
+      }
+    })
+}
+
 function setPlaceColor(population, baseHue = 195) {
   if (population > 15000000) {
     return `hsl(${baseHue + 30},100%, 20%)`
@@ -184,7 +195,6 @@ var polyline = L.polyline(testPolyline , {color: 'red'})
 
 
 var map = L.map('map', {
-    renderer: L.canvas(),
     layers: [mapboxMap]
 }).setView([37, 10], 3);
 
