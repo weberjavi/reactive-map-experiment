@@ -1,4 +1,4 @@
-# carto-frontend-test  
+# reactive map experiment  
 
 clone the repository and execute ``npm install``
 
