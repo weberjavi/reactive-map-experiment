@@ -1,6 +1,6 @@
 'use strict'
 
-export const placesURL = 'https://xavijam.carto.com/api/v2/sql?q=SELECT*FROM ne_10m_populated_places_simple&format=GeoJSON'
+export const placesURL = 'https://cartovl.carto.com/api/v2/sql?q=SELECT%20*%20FROM%20populated_places_small&format=GeoJSON'
 
 export const mapQuestKey = 'xnPiTgLNyXnvhXtBeXipUnBOXd9i0k0d'
 
