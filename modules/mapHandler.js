@@ -7,7 +7,7 @@ import {testPolyline} from '../config'
 let mapboxMap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a> | <a href="http://mapbox.com">Mapbox</a>',
                     maxZoom: 18,
-                    id: 'mapbox/streets-v11',
+                    id: 'mapbox/dark-v10',
                     accessToken: 'pk.eyJ1IjoiamF2aWFiaWEiLCJhIjoiS1ZyQ3BQYyJ9.v8yJTbF879AQ_t6j5XafiQ'
                 })
 
